@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style Sage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fixed Magical Background Image -->
+  <!-- Replace 'your-magical-background.jpg' with your image file -->
+  <div class="background"></div>
+
+  <!-- Header (Non-sticky) -->
+  <header>
+    <div class="container">
+      <div class="header">
+        <div class="icon">
+          <img src="./img/sage.png" alt="sage icon">
+        </div>
+        <h1>Style Sage</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#upload">Upload</a></li>
+          <li><a href="#recommendations">Outfits</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero fade-slide">
+    <div class="container">
+      <h2>Your Personalized Stylist</h2>
+      <p>Get the best outfit suggestions based on your unique style and complexion.</p>
+      <a href="#upload" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Fashion Quote Section -->
+  <section class="quote fade-slide">
+    <div class="container">
+      <h2>“Fashion is the armor to survive the reality of everyday life.”</h2>
+      <p>— Bill Cunningham</p>
+    </div>
+  </section>
+
+  <!-- Upload Section -->
+  <section id="upload" class="upload fade-slide">
+    <div class="container">
+      <h2>Upload Your Photo</h2>
+      <div class="upload-box">
+        <input type="file" id="imageUpload" accept="image/*">
+        <label for="imageUpload">Drag & Drop or Click to Upload</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outfit Recommendations Section -->
+  <section id="recommendations" class="recommendations fade-slide">
+    <div class="container">
+      <h2>Outfit Recommendations</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/300x400.png?text=Outfit+1" alt="Outfit 1">
+          <h3>Outfit 1</h3>
+          <p>Flattering, casual, and chic.</p>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300x400.png?text=Outfit+2" alt="Outfit 2">
+          <h3>Outfit 2</h3>
+          <p>Elegant and timeless.</p>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300x400.png?text=Outfit+3" alt="Outfit 3">
+          <h3>Outfit 3</h3>
+          <p>Modern and sophisticated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="fade-slide">
+    <div class="container">
+      <p>&copy; 2025 Style Sage. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Inline Script for Scroll Animations -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll(".fade-slide");
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          } else {
+            entry.target.classList.remove("show");
+          }
+        });
+      }, { threshold: 0.3 });
+
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
