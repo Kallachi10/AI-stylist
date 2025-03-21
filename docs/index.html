@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Style Sage</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script> 
 </head>
 <body>
-  <!-- Fixed Magical Background Image -->
-  <!-- Replace 'your-magical-background.jpg' with your image file -->
   <div class="background"></div>
 
-  <!-- Header (Non-sticky) -->
   <header>
     <div class="container">
       <div class="header">
@@ -30,7 +28,6 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero fade-slide">
     <div class="container">
       <h2>Your Personalized Stylist</h2>
@@ -39,7 +36,6 @@
     </div>
   </section>
 
-  <!-- Fashion Quote Section -->
   <section class="quote fade-slide">
     <div class="container">
       <h2>“Life is too short to wear boring clothes”</h2>
@@ -47,18 +43,19 @@
     </div>
   </section>
 
-  <!-- Upload Section -->
   <section id="upload" class="upload fade-slide">
     <div class="container">
       <h2>Upload Your Photo</h2>
       <div class="upload-box">
-        <input type="file" id="imageUpload" accept="image/*">
-        <label for="imageUpload">Drag & Drop or Click to Upload</label>
+        <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+        <label for="imageUpload">Click to Upload</label>
+      </div>
+      <div class="preview">
+        <img id="imagePreview" src="" alt="Uploaded Image" style="display: none; max-width: 300px; margin-top: 10px;">
       </div>
     </div>
   </section>
 
-  <!-- Outfit Recommendations Section -->
   <section id="recommendations" class="recommendations fade-slide">
     <div class="container">
       <h2>Outfit Recommendations</h2>
@@ -82,14 +79,12 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="fade-slide">
     <div class="container">
       <p>&copy; 2025 Style Sage. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Inline Script for Scroll Animations -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const elements = document.querySelectorAll(".fade-slide");
@@ -106,6 +101,19 @@
 
       elements.forEach(el => observer.observe(el));
     });
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imagePreview = document.getElementById("imagePreview");
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   </script>
 </body>
 </html>
