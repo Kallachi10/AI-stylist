@@ -3,10 +3,10 @@ import cv2
 import numpy as np
 from sklearn.cluster import KMeans
 from flask_cors import CORS
-CORS(app)
+
 
 app = Flask(__name__)
-
+CORS(app)
 # Load OpenCV's pre-trained face detector
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
