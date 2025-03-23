@@ -4,9 +4,9 @@ import numpy as np
 from sklearn.cluster import KMeans
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 CORS(app)
+
 # Load OpenCV's pre-trained face detector
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
@@ -24,7 +24,6 @@ def extract_skin_tone(image_bytes):
 
     # Detect faces
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
-
     if len(faces) == 0:
         return {"error": "No face detected."}
 
@@ -33,13 +32,11 @@ def extract_skin_tone(image_bytes):
 
     # Crop a central portion of the face to avoid hair and background
     face_roi = image[y + int(h * 0.2): y + int(h * 0.8), x + int(w * 0.2): x + int(w * 0.8)]
-
     if face_roi.size == 0:
         return {"error": "Face cropping failed."}
 
     # Convert to L*a*b* color space
     lab = cv2.cvtColor(face_roi, cv2.COLOR_BGR2LAB)
-
     # Reshape image data for clustering
     pixels = lab.reshape((-1, 3))
 
@@ -47,8 +44,6 @@ def extract_skin_tone(image_bytes):
     num_clusters = 3
     kmeans = KMeans(n_clusters=num_clusters, n_init=10, random_state=42)
     kmeans.fit(pixels)
-
-    # Get the top 3 most dominant colors
     dominant_colors = kmeans.cluster_centers_
 
     # Function to classify Fitzpatrick type based on L* values
@@ -85,8 +80,10 @@ def upload_image():
     image_bytes = image_file.read()
 
     result = extract_skin_tone(image_bytes)
-
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    # Bind to 0.0.0.0 and use the port from environment variable (defaulting to 5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Style Sage</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script> 
+  <script src="./stylistInterface.js" defer></script> 
 </head>
 <body>
   <div class="background"></div>
@@ -47,12 +47,14 @@
     <div class="container">
       <h2>Upload Your Photo</h2>
       <div class="upload-box">
-        <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(event)">
-        <label for="imageUpload">Click to Upload</label>
+        <!-- Removed inline onchange to use our separate script function -->
+        <input type="file" id="imageUpload" accept="image/*">
+        <label for="imageUpload" class="upload-btn">Click to Upload</label>
       </div>
       <div class="preview">
         <img id="imagePreview" src="" alt="Uploaded Image" style="display: none; max-width: 300px; margin-top: 10px;">
       </div>
+      <!-- Status indicator element -->
       <p id="statusText" style="font-weight: bold; margin-top: 10px;"></p> 
     </div>
   </section>
@@ -87,9 +89,9 @@
   </footer>
 
   <script>
+    // IntersectionObserver for fade-slide effects
     document.addEventListener("DOMContentLoaded", function () {
       const elements = document.querySelectorAll(".fade-slide");
-
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -99,59 +101,8 @@
           }
         });
       }, { threshold: 0.3 });
-
       elements.forEach(el => observer.observe(el));
     });
-
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        previewImage(file);
-        uploadImage(file);  // Automatically upload after preview
-      }
-    }
-
-    function previewImage(file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const imagePreview = document.getElementById("imagePreview");
-        imagePreview.src = e.target.result;
-        imagePreview.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function uploadImage(file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      // Show uploading status
-      const statusText = document.getElementById("statusText");
-      statusText.innerText = "Uploading...";
-      statusText.style.color = "blue";
-
-      fetch("https://ai-stylist-hw5f.onrender.com/process-image", {  
-        method: "POST",
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Response:", data);
-
-        if (data.error) {
-          statusText.innerText = `Error: ${data.error}`;
-          statusText.style.color = "red";
-        } else {
-          statusText.innerText = `Detected Skin Tone: ${data.fitzpatrick_type}`;
-          statusText.style.color = "green";
-        }
-      })
-      .catch(error => {
-        console.error("Error uploading image:", error);
-        statusText.innerText = "Upload failed! Please try again.";
-        statusText.style.color = "red";
-      });
-    }
   </script>
 </body>
 </html>
