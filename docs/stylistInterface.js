@@ -1,6 +1,11 @@
 function uploadImage(file) {
     const formData = new FormData();
-    formData.append("image", file); // Use "image" instead of "file" (as per your Flask code)
+    formData.append("image", file); // Ensure this matches your Flask backend key
+
+    // Show uploading indicator
+    const statusText = document.getElementById("statusText");
+    statusText.innerText = "Uploading...";
+    statusText.style.color = "blue";
 
     fetch("https://ai-stylist-hw5f.onrender.com/process-image", {  
         method: "POST",
@@ -11,13 +16,16 @@ function uploadImage(file) {
         console.log("Response:", data);
 
         if (data.error) {
-            alert(`Error: ${data.error}`);
+            statusText.innerText = `Error: ${data.error}`;
+            statusText.style.color = "red";
         } else {
-            alert(`Detected Skin Tone: ${data.fitzpatrick_type}`);
+            statusText.innerText = `Detected Skin Tone: ${data.fitzpatrick_type}`;
+            statusText.style.color = "green";
         }
     })
     .catch(error => {
         console.error("Error uploading image:", error);
-        alert("Upload failed!");
+        statusText.innerText = "Upload failed! Please try again.";
+        statusText.style.color = "red";
     });
 }
