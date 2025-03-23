@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import cv2
 import numpy as np
 from sklearn.cluster import KMeans
+from flask_cors import CORS
+CORS(app)
 
 app = Flask(__name__)
 
