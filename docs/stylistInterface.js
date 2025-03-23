@@ -1,22 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const uploadBtn = document.querySelector(".upload-btn");
     const fileInput = document.getElementById("imageUpload");
     const statusText = document.getElementById("statusText");
 
-    // Attach event listeners
-    fileInput.addEventListener("change", handleImageUpload);
-    uploadBtn.addEventListener("click", function () {
-        fileInput.click();
+    // Listen for changes on the file input
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            previewImage(file);
+            uploadImage(file);
+        }
     });
 });
-
-function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        previewImage(file);
-        uploadImage(file);
-    }
-}
 
 function previewImage(file) {
     const reader = new FileReader();
