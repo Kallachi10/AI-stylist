@@ -4,7 +4,7 @@ from flask_cors import CORS
 import google.generativeai as genai
 
 app = Flask(__name__)
-CORS(app)  # Allow frontend requests
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Get API key from Render environment variables
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
