@@ -26,7 +26,35 @@ def get_outfit():
 
     try:
         model = genai.GenerativeModel("gemini-1.5-pro-latest")
-        prompt = f"User has Fitzpatrick skin type {skin_type}. Suggest outfit colors and styles."
+        prompt = f"""
+User has Fitzpatrick skin type {skin_type}. 
+Suggest three outfit styles with appropriate colors based on color theory:
+
+1️⃣ **Casual** – Everyday comfortable wear.
+2️⃣ **Eccentric** – Unique and bold fashion.
+3️⃣ **Kerala Traditional** – Ethnic attire.
+
+Return the response in **strict JSON format** like this:
+
+{{
+    "casual": {{
+        "outfit": "Describe the casual outfit here",
+        "colors": ["Color1", "Color2", "Color3"]
+    }},
+    "eccentric": {{
+        "outfit": "Describe the eccentric outfit here",
+        "colors": ["Color1", "Color2", "Color3"]
+    }},
+    "kerala_traditional": {{
+        "outfit": "Describe the Kerala traditional outfit here",
+        "colors": ["Color1", "Color2", "Color3"]
+    }}
+}}
+
+Do not add extra text—return **only** the JSON object.
+"""
+
+
 
         response = model.generate_content(prompt)
         return jsonify({"recommendations": response.text})
