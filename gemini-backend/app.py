@@ -25,7 +25,7 @@ def get_outfit():
         return jsonify({"error": "❌ Skin type is required"}), 400
 
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-1.5-pro-latest")
         prompt = f"User has Fitzpatrick skin type {skin_type}. Suggest outfit colors and styles."
 
         response = model.generate_content(prompt)
