@@ -66,7 +66,7 @@ function getOutfitRecommendations(skinType) {
     outfitSuggestions.innerText = "Fetching personalized outfits...";
     outfitSuggestions.style.color = "blue";
 
-    fetch("https://ai-stylist-hw5f.onrender.com/get_outfit", {
+    fetch("https://gem-backend-du76.onrender.com", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
