@@ -16,7 +16,7 @@ if not GEMINI_API_KEY:
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
-@app.route('/get_outfit', methods=['POST'])
+@app.route('/get_outfit', methods=['GET','POST'])
 def get_outfit():
     data = request.json
     skin_type = data.get("skin_type")
