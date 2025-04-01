@@ -24,12 +24,16 @@ def get_outfit():
     if not skin_type:
         return jsonify({"error": "❌ Skin type is required"}), 400
 
-    # Generate outfit recommendations
-    model = genai.GenerativeModel("gemini-pro")
-    prompt = f"User has Fitzpatrick skin type {skin_type}. Suggest outfit colors and styles."
+    try:
+        model = genai.GenerativeModel("gemini-pro")
+        prompt = f"User has Fitzpatrick skin type {skin_type}. Suggest outfit colors and styles."
 
-    response = model.generate_content(prompt)
-    return jsonify({"recommendations": response.text})
+        response = model.generate_content(prompt)
+        return jsonify({"recommendations": response.text})
+
+    except Exception as e:
+        return jsonify({"error": f"❌ Gemini API Error: {str(e)}"}), 500
+
 
 @app.route('/')
 def home():
