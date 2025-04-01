@@ -47,14 +47,12 @@
     <div class="container">
       <h2>Upload Your Photo</h2>
       <div class="upload-box">
-        <!-- Removed inline onchange to use our separate script function -->
         <input type="file" id="imageUpload" accept="image/*">
         <label for="imageUpload" class="upload-btn">Click to Upload</label>
       </div>
       <div class="preview">
         <img id="imagePreview" src="" alt="Uploaded Image" style="display: none; max-width: 300px; margin-top: 10px;">
       </div>
-      <!-- Status indicator element -->
       <p id="statusText" style="font-weight: bold; margin-top: 10px;"></p> 
     </div>
   </section>
@@ -62,22 +60,10 @@
   <section id="recommendations" class="recommendations fade-slide">
     <div class="container">
       <h2>Outfit Recommendations</h2>
-      <div class="grid">
-        <div class="card">
-          <img src="https://via.placeholder.com/300x400.png?text=Outfit+1" alt="Outfit 1">
-          <h3>Outfit 1</h3>
-          <p>Flattering, casual, and chic.</p>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/300x400.png?text=Outfit+2" alt="Outfit 2">
-          <h3>Outfit 2</h3>
-          <p>Elegant and timeless.</p>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/300x400.png?text=Outfit+3" alt="Outfit 3">
-          <h3>Outfit 3</h3>
-          <p>Modern and sophisticated.</p>
-        </div>
+      <p id="outfitSuggestions" style="font-weight: bold; margin-bottom: 20px;"></p> 
+
+      <div class="grid" id="outfitGrid"> 
+        <!-- Outfits will be dynamically inserted here -->
       </div>
     </div>
   </section>
@@ -89,7 +75,6 @@
   </footer>
 
   <script>
-    // IntersectionObserver for fade-slide effects
     document.addEventListener("DOMContentLoaded", function () {
       const elements = document.querySelectorAll(".fade-slide");
       const observer = new IntersectionObserver(entries => {
@@ -104,5 +89,6 @@
       elements.forEach(el => observer.observe(el));
     });
   </script>
+
 </body>
 </html>
