@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to show uploaded image preview
 function previewImage(file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         const imagePreview = document.getElementById("imagePreview");
         imagePreview.src = e.target.result;
         imagePreview.style.display = "block";
@@ -34,7 +34,7 @@ function uploadImage(file) {
     statusText.innerText = "Uploading...";
     statusText.style.color = "blue";
 
-    fetch("https://ai-stylist-hw5f.onrender.com/upload", {  
+    fetch("https://ai-stylist-hw5f.onrender.com/upload", {
         method: "POST",
         body: formData
     })
@@ -58,7 +58,7 @@ function uploadImage(file) {
     });
 }
 
-// Function to fetch outfit recommendations from Gemini API
+// Function to fetch outfit recommendations
 function getOutfitRecommendations(skinType) {
     const outfitSuggestions = document.getElementById("outfitSuggestions");
     const outfitGrid = document.getElementById("outfitGrid");
@@ -66,7 +66,7 @@ function getOutfitRecommendations(skinType) {
     outfitSuggestions.innerText = "Fetching personalized outfits...";
     outfitSuggestions.style.color = "blue";
 
-    fetch("https://gem-backend-du76.onrender.com", {
+    fetch("https://gem-backend-du76.onrender.com/get_outfit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -78,31 +78,46 @@ function getOutfitRecommendations(skinType) {
         if (data.error) {
             outfitSuggestions.innerText = `Error: ${data.error}`;
             outfitSuggestions.style.color = "red";
-        } else {
-            outfitSuggestions.innerText = `Here are your personalized outfit suggestions based on color theory:`;
-            outfitSuggestions.style.color = "green";
+            return;
+        }
 
-            // Clear previous outfits
-            outfitGrid.innerHTML = "";
+        outfitSuggestions.innerText = `Here are your personalized outfit suggestions based on color theory:`;
+        outfitSuggestions.style.color = "white";
 
-            // Categories: Casual, Eccentric, Kerala Traditional
-            const categories = ["Casual", "Eccentric", "Classic Kerala"];
-            data.recommendations.forEach((outfit, index) => {
+        // Clear previous outfits
+        outfitGrid.innerHTML = "";
+
+        try {
+            // 🔥 **Fix: Extract valid JSON from the response**
+            const jsonString = data.recommendations.match(/```json\n([\s\S]*)\n```/);
+            if (!jsonString) throw new Error("Invalid JSON format in response!");
+
+            // Parse the extracted JSON
+            const recommendations = JSON.parse(jsonString[1]);
+
+            // Loop through the parsed JSON
+            Object.entries(recommendations).forEach(([category, outfit]) => {
                 const outfitCard = document.createElement("div");
                 outfitCard.classList.add("card");
 
                 outfitCard.innerHTML = `
-                    <h3>${categories[index]}</h3>
-                    <img src="${outfit.image}" alt="${categories[index]} Outfit">
-                    <p>${outfit.description}</p>
+                    <h3>${category.replace("_", " ").toUpperCase()}</h3>
+                    <p><strong>Outfit:</strong> ${outfit.outfit}</p>
+                    <p><strong>Recommended Colors:</strong> ${outfit.colors.join(", ")}</p>
                 `;
 
                 outfitGrid.appendChild(outfitCard);
             });
+
+        } catch (error) {
+            outfitSuggestions.innerText = "Error processing outfit recommendations!";
+            outfitSuggestions.style.color = "red";
+            console.error("❌ JSON Parsing Error:", error);
         }
     })
     .catch(error => {
         outfitSuggestions.innerText = "Failed to get outfit recommendations!";
         outfitSuggestions.style.color = "red";
+        console.error("❌ Fetch Error:", error);
     });
 }
