@@ -152,9 +152,18 @@ nav ul li a {
   color: #EEE;
 }
 
-.prerview {
+.preview {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.preview img {
+  max-width: 300px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
 .upload h2 {

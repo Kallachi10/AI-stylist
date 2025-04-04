@@ -1,0 +1,9 @@
+web: python app.py
+services:
+  - type: web
+    name: stable-diffusion-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    plan: starter  # You may want to choose a more powerful plan depending on the resources you need
+    instances: 1
