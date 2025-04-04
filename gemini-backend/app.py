@@ -42,16 +42,19 @@ Return the response in **strict JSON format** like this:
         "outfit": "Describe the casual outfit here",
         "colors": ["Color1", "Color2", "Color3"],
         "prompt_info": "Clothing type: (type), color: (color)"
+        "clothing" : "only the type of clothing(not the material and stuff but that's worn) along with one of the apt colours(clothing + colour) format"
     }},
     "eccentric": {{
         "outfit": "Describe the eccentric outfit here",
         "colors": ["Color1", "Color2", "Color3"],
         "prompt_info": "Clothing type: (type), color: (color)"
+        "clothing" : "only the type of clothing(not the material and stuff but that's worn) along with one of the apt colours(clothing + colour) format"
     }},
     "kerala_traditional": {{
         "outfit": "Describe the Kerala traditional outfit here",
         "colors": ["Color1", "Color2", "Color3"],
         "prompt_info": "Clothing type: (type), color: (color)"
+        "clothing" : "only the type of clothing(not the material and stuff but that's worn) along with one of the apt colours(clothing + colour) format"
     }}
 }}
 

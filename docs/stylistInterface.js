@@ -1,5 +1,5 @@
 let selectedGender = "";
-const MODEL_LAB_API_KEY = "YOUR_API_KEY"; // Replace with your actual Modelslab API key
+const MODEL_LAB_API_KEY = "jX13rIqAzfaSQuSEcmE03OgOLf118nebU1mBMflXCLaKWaItNVzNrOfx3zTg"; // Replace with your actual Modelslab API key
 
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("imageUpload");
@@ -113,7 +113,7 @@ function getOutfitRecommendations(skinType) {
                 const genderPrompt = selectedGender?.toLowerCase() || "person";
 
                 // Filter out accessories like heels or shoes
-                const filteredClothing = outfit.outfit.split(", ").filter(item => !/shoe|heel|sandal|accessor/i.test(item));
+                const filteredClothing = outfit.outfit.split(", ").filter(item => !/dress|shirts|pants|top|shirt|pant/i.test(item));
                 const firstClothing = filteredClothing.length > 0 ? filteredClothing[0] : outfit.outfit;
                 const clothingWords = firstClothing.split(" ");
                 const clothingType = clothingWords[clothingWords.length - 1] || "outfit";
