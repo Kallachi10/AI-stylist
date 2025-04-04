@@ -1,9 +1,12 @@
-web: python app.py
 services:
   - type: web
     name: stable-diffusion-api
     env: python
+    plan: starter  # change to "free" if you're testing on a free plan
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
-    plan: starter  # You may want to choose a more powerful plan depending on the resources you need
-    instances: 1
+    startCommand: gunicorn app:app --workers=1 --bind=0.0.0.0:5000
+    envVars:
+      - key: PYTORCH_ENABLE_MPS_FALLBACK
+        value: "1"
+      - key: HF_HUB_ENABLE_HF_TRANSFER
+        value: "1"

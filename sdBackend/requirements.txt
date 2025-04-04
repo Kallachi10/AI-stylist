@@ -1,7 +1,9 @@
-Flask==2.2.3
-torch==1.13.1
-transformers==4.24.0
-diffusers==0.6.0
-Pillow==9.1.0
-mediapy==1.0.0  # if you want to use mediapy to visualize the image locally
-huggingface-hub==0.13.0
+flask
+werkzeug==2.3.7
+torch
+diffusers
+huggingface_hub
+gunicorn
+Pillow
+transformers
+safetensors
