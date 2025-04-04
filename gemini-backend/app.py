@@ -40,20 +40,24 @@ Return the response in **strict JSON format** like this:
 {{
     "casual": {{
         "outfit": "Describe the casual outfit here",
-        "colors": ["Color1", "Color2", "Color3"]
+        "colors": ["Color1", "Color2", "Color3"],
+        "prompt_info": "Clothing type: (type), color: (color)"
     }},
     "eccentric": {{
         "outfit": "Describe the eccentric outfit here",
-        "colors": ["Color1", "Color2", "Color3"]
+        "colors": ["Color1", "Color2", "Color3"],
+        "prompt_info": "Clothing type: (type), color: (color)"
     }},
     "kerala_traditional": {{
         "outfit": "Describe the Kerala traditional outfit here",
-        "colors": ["Color1", "Color2", "Color3"]
+        "colors": ["Color1", "Color2", "Color3"],
+        "prompt_info": "Clothing type: (type), color: (color)"
     }}
 }}
 
 Do not add extra text—return **only** the JSON object.
 """
+
 
 
 
