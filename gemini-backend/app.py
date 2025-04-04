@@ -26,7 +26,7 @@ def get_outfit():
         return jsonify({"error": "❌ Skin type is required"}), 400
 
     try:
-        model = genai.GenerativeModel("gemini-1.5-pro-latest")
+        model = genai.GenerativeModel("gemini-1.5-flash-latest")
         prompt = f"""
 User has Fitzpatrick skin type {skin_type} and gender is {gender}. 
 Suggest three outfit styles with appropriate colors based on color theory:

@@ -152,6 +152,11 @@ nav ul li a {
   color: #EEE;
 }
 
+.prerview {
+  display: flex;
+  justify-content: center;
+}
+
 .upload h2 {
   margin-bottom: 20px;
   font-weight: 300;
