@@ -20,6 +20,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 def get_outfit():
     data = request.json
     skin_type = data.get("skin_type")
+    gender = data.get("gender", "unspecified")  # ✔️ safely get gender
 
     if not skin_type:
         return jsonify({"error": "❌ Skin type is required"}), 400
@@ -27,7 +28,7 @@ def get_outfit():
     try:
         model = genai.GenerativeModel("gemini-1.5-pro-latest")
         prompt = f"""
-User has Fitzpatrick skin type {skin_type}. 
+User has Fitzpatrick skin type {skin_type} and gender is {gender}. 
 Suggest three outfit styles with appropriate colors based on color theory:
 
 1️⃣ **Casual** – Everyday comfortable wear.

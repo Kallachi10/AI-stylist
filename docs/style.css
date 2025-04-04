@@ -257,3 +257,8 @@ footer p {
   opacity: 1;
   transform: translateY(0) translateX(0);
 }
+.gender-select {
+  display: flex;
+  align-items: center;
+  color: black;
+}

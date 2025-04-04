@@ -1,8 +1,17 @@
+let selectedGender = ""; // Global variable to store selected gender
+
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("imageUpload");
+    const genderSelect = document.getElementById("gender"); // Gender dropdown
     const statusText = document.getElementById("statusText");
     const outfitSuggestions = document.getElementById("outfitSuggestions");
     const outfitGrid = document.getElementById("outfitGrid");
+
+    // Store gender when selected
+    genderSelect.addEventListener("change", function (event) {
+        selectedGender = event.target.value;
+        console.log("Selected gender:", selectedGender); // You can remove this after testing
+    });
 
     // Listen for file input change
     fileInput.addEventListener("change", function (event) {
@@ -32,7 +41,7 @@ function uploadImage(file) {
 
     const statusText = document.getElementById("statusText");
     statusText.innerText = "Uploading...";
-    statusText.style.color = "blue";
+    statusText.style.color = "white";
 
     fetch("https://ai-stylist-hw5f.onrender.com/upload", {
         method: "POST",
@@ -46,7 +55,7 @@ function uploadImage(file) {
         } else {
             const skinType = data.fitzpatrick_type;
             statusText.innerText = `Detected Skin Tone: ${skinType}`;
-            statusText.style.color = "green";
+            statusText.style.color = "white";
 
             // Fetch outfit recommendations
             getOutfitRecommendations(skinType);
@@ -64,14 +73,17 @@ function getOutfitRecommendations(skinType) {
     const outfitGrid = document.getElementById("outfitGrid");
 
     outfitSuggestions.innerText = "Fetching personalized outfits...";
-    outfitSuggestions.style.color = "blue";
+    outfitSuggestions.style.color = "white";
 
     fetch("https://gem-backend-du76.onrender.com/get_outfit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ skin_type: skinType })
+        body: JSON.stringify({ 
+            skin_type: skinType,
+            gender: selectedGender // Send gender if needed
+        })
     })
     .then(response => response.json())
     .then(data => {
@@ -84,18 +96,14 @@ function getOutfitRecommendations(skinType) {
         outfitSuggestions.innerText = `Here are your personalized outfit suggestions based on color theory:`;
         outfitSuggestions.style.color = "white";
 
-        // Clear previous outfits
-        outfitGrid.innerHTML = "";
+        outfitGrid.innerHTML = ""; // Clear previous outfits
 
         try {
-            // 🔥 **Fix: Extract valid JSON from the response**
             const jsonString = data.recommendations.match(/```json\n([\s\S]*)\n```/);
             if (!jsonString) throw new Error("Invalid JSON format in response!");
 
-            // Parse the extracted JSON
             const recommendations = JSON.parse(jsonString[1]);
 
-            // Loop through the parsed JSON
             Object.entries(recommendations).forEach(([category, outfit]) => {
                 const outfitCard = document.createElement("div");
                 outfitCard.classList.add("card");

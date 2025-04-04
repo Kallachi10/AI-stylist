@@ -46,13 +46,29 @@
   <section id="upload" class="upload fade-slide">
     <div class="container">
       <h2>Upload Your Photo</h2>
+
+      <!-- Gender Dropdown -->
+      <div class="gender-select" style="margin-bottom: 15px;">
+        <label for="gender" style="font-weight: bold;">Select Gender:</label>
+        <select id="gender" name="gender" style="margin-left: 10px; padding: 5px;">
+          <option value="" disabled selected>Select</option> 
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="prefer-not">Prefer not to say</option>
+        </select>
+      </div>
+
+      <!-- Image Upload -->
       <div class="upload-box">
         <input type="file" id="imageUpload" accept="image/*">
         <label for="imageUpload" class="upload-btn">Click to Upload</label>
       </div>
+
+      <!-- Preview -->
       <div class="preview">
         <img id="imagePreview" src="" alt="Uploaded Image" style="display: none; max-width: 300px; margin-top: 10px;">
       </div>
+
       <p id="statusText" style="font-weight: bold; margin-top: 10px;"></p> 
     </div>
   </section>
