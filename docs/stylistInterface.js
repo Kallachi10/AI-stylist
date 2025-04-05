@@ -1,5 +1,5 @@
 let selectedGender = "";
-const MODEL_LAB_API_KEY = "UrRn7Sp9mgLCuQsygDPDDqUVroFqsxAHMY0eYCgR1lZ0oQPyT5chtFPiGFes"; // Replace with your actual Modelslab API key
+const MODEL_LAB_API_KEY = "bXVTJKkoOKdG4ZwcBeDjc3NWoyiCzY2hJTPtQLHlzYqHW051pw9Jm7i7Kfyx"; // Replace with your actual Modelslab API key
 
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("imageUpload");
@@ -123,7 +123,6 @@ function getOutfitRecommendations(skinType) {
                 console.log(fullPrompt);
                 // Display prompt for testing
                 
-
                 try {
                     const imageRes = await fetch("https://modelslab.com/api/v6/realtime/text2img", {
                         method: "POST",
@@ -159,6 +158,9 @@ function getOutfitRecommendations(skinType) {
                     console.error("Error generating image:", err);
                     outfitCard.innerHTML += `<p style="color:red;">❌ Error generating image.</p>`;
                 }
+
+                // Add the 5-star rating system dynamically
+                addRatingSystem(outfitCard);
             }
 
         } catch (error) {
@@ -171,5 +173,71 @@ function getOutfitRecommendations(skinType) {
         outfitSuggestions.innerText = "Failed to get outfit recommendations!";
         outfitSuggestions.style.color = "red";
         console.error("❌ Fetch Error:", error);
+    });
+}
+
+// Function to add the rating system for each outfit
+function addRatingSystem(outfitCard) {
+    const ratingContainer = document.createElement('div');
+    ratingContainer.classList.add('rating-container');
+    
+    const ratingHeading = document.createElement('h4');
+    ratingHeading.textContent = 'Rate this Outfit';
+    
+    const starRating = document.createElement('div');
+    starRating.classList.add('star-rating');
+
+    // Create 5 stars
+    for (let i = 1; i <= 5; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.setAttribute('data-value', i);
+        star.innerHTML = '&#9733;'; // Unicode for filled star
+        starRating.appendChild(star);
+    }
+
+    ratingContainer.appendChild(ratingHeading);
+    ratingContainer.appendChild(starRating);
+
+    const ratingText = document.createElement('p');
+    ratingText.setAttribute('id', 'ratingText');
+    ratingText.style.fontWeight = 'bold';
+    ratingText.style.marginTop = '10px';
+    ratingContainer.appendChild(ratingText);
+    
+    outfitCard.appendChild(ratingContainer);
+
+    // Handle star clicks
+    const stars = starRating.querySelectorAll('.star');
+    const ratingTextElement = ratingText;
+
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            stars.forEach(star => {
+                star.classList.remove('active');
+            });
+            for (let i = 0; i < rating; i++) {
+                stars[i].classList.add('active');
+            }
+            ratingTextElement.textContent = `You rated this outfit ${rating} stars!`;
+        });
+
+        // Hover effect: show yellow stars on hover
+        star.addEventListener('mouseover', function () {
+            for (let i = 0; i < stars.length; i++) {
+                if (i <= this.getAttribute('data-value') - 1) {
+                    stars[i].classList.add('hovered');
+                } else {
+                    stars[i].classList.remove('hovered');
+                }
+            }
+        });
+
+        star.addEventListener('mouseout', function () {
+            stars.forEach(star => {
+                star.classList.remove('hovered');
+            });
+        });
     });
 }

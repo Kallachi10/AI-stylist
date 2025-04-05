@@ -342,4 +342,24 @@ footer p {
     padding: 10px 20px;
     font-size: 1rem;
   }
+  
 }
+
+/* Style for the stars */
+.star-rating .star {
+  font-size: 32px;
+  color: #ccc; /* Default gray color for stars */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.star-rating .star.hovered {
+  color: yellow; /* Change to yellow on hover */
+}
+
+/* Active stars */
+.star-rating .star.active {
+  color: yellow; /* Yellow color when clicked */
+}
+
