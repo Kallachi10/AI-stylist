@@ -1,5 +1,5 @@
 let selectedGender = "";
-const MODEL_LAB_API_KEY = "jX13rIqAzfaSQuSEcmE03OgOLf118nebU1mBMflXCLaKWaItNVzNrOfx3zTg"; // Replace with your actual Modelslab API key
+const MODEL_LAB_API_KEY = "W4EzvEgrQCbp53EnyhkoBCiY34j9RbxluWx4EGKEUVGA4ZenXV3IbC4bMUwu"; // Replace with your actual Modelslab API key
 
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("imageUpload");
@@ -119,10 +119,10 @@ function getOutfitRecommendations(skinType) {
                 const clothingType = clothingWords[clothingWords.length - 1] || "outfit";
 
                 const color = outfit.colors?.[0] || "blue";
-                const fullPrompt = `A ${genderPrompt} person wearing a ${color} ${clothingType}`;
-
+                const fullPrompt = "a person wearing" + outfit.outfit;
+                console.log(fullPrompt);
                 // Display prompt for testing
-                outfitCard.innerHTML += `<p><strong>Prompt:</strong> ${fullPrompt}</p>`;
+                
 
                 try {
                     const imageRes = await fetch("https://modelslab.com/api/v6/realtime/text2img", {
