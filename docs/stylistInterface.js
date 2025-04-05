@@ -1,5 +1,5 @@
 let selectedGender = "";
-const MODEL_LAB_API_KEY = "W4EzvEgrQCbp53EnyhkoBCiY34j9RbxluWx4EGKEUVGA4ZenXV3IbC4bMUwu"; // Replace with your actual Modelslab API key
+const MODEL_LAB_API_KEY = "UrRn7Sp9mgLCuQsygDPDDqUVroFqsxAHMY0eYCgR1lZ0oQPyT5chtFPiGFes"; // Replace with your actual Modelslab API key
 
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("imageUpload");
